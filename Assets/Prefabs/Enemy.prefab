@@ -128,4 +128,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 489d6adadb1701c419fbed7d9a94ad50, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startingHealth: 25
+  startingHealth: 5
