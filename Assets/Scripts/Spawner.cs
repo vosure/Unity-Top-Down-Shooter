@@ -11,7 +11,7 @@ public class Spawner : MonoBehaviour
     Transform playerTransform;
 
     Wave currentWave;
-    int currentWaveNumber;
+    int currentWaveNumber = 0;
 
     int enemiesRemainingToSpawn;
     int enemiesRemainingToAlive;
@@ -26,6 +26,8 @@ public class Spawner : MonoBehaviour
     bool isCamping;
 
     bool playerDead;
+
+    public event System.Action<int> OnNewWave;
 
     private void Start()
     {
@@ -107,6 +109,11 @@ public class Spawner : MonoBehaviour
             NextWave();
     }
 
+    void ResetPlayerPosition()
+    {
+        playerTransform.position = map.GetTileFromPosition(Vector3.zero).position + Vector3.up * 3;
+    }
+
     void NextWave()
     {
         currentWaveNumber++;
@@ -116,6 +123,11 @@ public class Spawner : MonoBehaviour
 
             enemiesRemainingToSpawn = currentWave.enemiesCount;
             enemiesRemainingToAlive = enemiesRemainingToSpawn;
+
+            if (OnNewWave != null)
+            {
+                OnNewWave(currentWaveNumber);
+            }
         }
     }
 
