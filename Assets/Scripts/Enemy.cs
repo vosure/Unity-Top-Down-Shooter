@@ -25,6 +25,8 @@ public class Enemy : LivingEntity
     float myCollisionRadius;
     float targetCollisionRadius;
 
+    public GameObject deathEffect;
+
     // Start is called before the first frame update
     protected override void Start()
     {
@@ -48,6 +50,16 @@ public class Enemy : LivingEntity
 
             StartCoroutine(UpdatePath());
         }
+    }
+
+    public override void TakeHit(float damage, Vector3 hitPoint, Vector3 hitDirection)
+    {
+        if (damage >= health)
+        {
+            Destroy(Instantiate(deathEffect, hitPoint, Quaternion.FromToRotation(Vector3.forward, hitDirection)) as GameObject, 2);
+        }
+
+        base.TakeHit(damage, hitPoint, hitDirection);
     }
 
     void OnTargetDeath()
