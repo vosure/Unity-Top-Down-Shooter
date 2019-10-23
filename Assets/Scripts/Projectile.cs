@@ -5,6 +5,7 @@ using UnityEngine;
 public class Projectile : MonoBehaviour
 {
     public LayerMask collisionMask;
+    public Color trailColor;
     float speed = 10.0f;
     float damage = 1.0f;
     float lifeTime = 3;
@@ -24,6 +25,8 @@ public class Projectile : MonoBehaviour
         {
             OnHitObject(initialCollisions[0], transform.position);
         }
+
+        GetComponent<TrailRenderer>().material.SetColor("_TintColor", trailColor);
     }
 
     void Update()
@@ -38,7 +41,8 @@ public class Projectile : MonoBehaviour
         Ray ray = new Ray(transform.position, transform.forward);
         RaycastHit hit;
 
-        if (Physics.Raycast(ray, out hit, moveDistance + skinWidth, collisionMask, QueryTriggerInteraction.Collide))
+        
+        if (Physics.Raycast(ray, out hit, moveDistance + skinWidth, collisionMask | LayerMask.GetMask("Obstacle"), QueryTriggerInteraction.Collide))
             OnHitObject(hit.collider, hit.point);
     }
 

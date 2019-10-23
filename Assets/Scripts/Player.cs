@@ -6,8 +6,8 @@ using UnityEngine;
 [RequireComponent (typeof (GunController))]
 public class Player : LivingEntity
 {
-
     public float moveSpeed = 5.0f;
+    public Crosshair crosshair;
 
     Camera viewCamera;
     PlayerController controller;
@@ -28,17 +28,21 @@ public class Player : LivingEntity
         controller.Move(moveVelocity);
 
         Ray ray = viewCamera.ScreenPointToRay(Input.mousePosition);
-        Plane groundPlane = new Plane(Vector3.up, Vector3.zero);
+        Plane groundPlane = new Plane(Vector3.up, Vector3.up * gunController.GunHeight);
 
         float rayDistance;
         if (groundPlane.Raycast(ray, out rayDistance))
         {
             Vector3 point = ray.GetPoint(rayDistance);
             controller.LookAt(point);
+            crosshair.transform.position = point;
+            crosshair.DetectTarget(ray);
         }
 
         if (Input.GetMouseButton(0))
-            gunController.Shoot();
+            gunController.OnTriggerHold();
+        if (Input.GetMouseButtonUp(0))
+            gunController.OnTriggerRelease();
 
     }
 }
