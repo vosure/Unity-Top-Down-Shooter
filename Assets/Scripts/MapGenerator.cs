@@ -14,6 +14,10 @@ public class MapGenerator : MonoBehaviour
     public Transform mapFloor;
     public Transform navmeshMaskPrefab;
 
+
+
+    public NavMeshSurface surface;
+
     public Vector2 maxMapSize;
 
     [Range(0, 1)]
@@ -38,6 +42,7 @@ public class MapGenerator : MonoBehaviour
     {
         mapIndex = waveNumber - 1;
         GenerateMap();
+        surface.BuildNavMesh();
     }
 
     public void GenerateMap()
@@ -97,7 +102,7 @@ public class MapGenerator : MonoBehaviour
                 float obstacleHeight = Mathf.Lerp(currentMap.minObstacleHeight, currentMap.maxObstacleHeight, (float)randomizer.NextDouble());
                 Vector3 obstaclePosition = CoordToPosition(randomCoord.x, randomCoord.y);
 
-                Transform obstacle = Instantiate(obstaclePrefab, obstaclePosition + Vector3.up *obstacleHeight / 2, Quaternion.identity) as Transform;
+                Transform obstacle = Instantiate(obstaclePrefab, obstaclePosition + Vector3.up * obstacleHeight / 2, Quaternion.identity) as Transform;
                 obstacle.localScale = new Vector3((1 - oulinePercent) * tileSize, obstacleHeight, (1 - oulinePercent) * tileSize);
                 obstacle.parent = mapHolder;
 
