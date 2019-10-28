@@ -626,7 +626,7 @@ GameObject:
   - component: {fileID: 3016645851081160672}
   - component: {fileID: 6223262576748401042}
   m_Layer: 0
-  m_Name: Gun
+  m_Name: Gun 03
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -670,10 +670,10 @@ MonoBehaviour:
   projectile: {fileID: 7747683920305955329, guid: 1bfe703c4cd9f5c44a5d77aa73b16f5d,
     type: 3}
   msBetweenShoots: 100
-  muzzleVelocity: 25
+  muzzleVelocity: 35
   burstCount: 3
-  reloadTime: 1
-  projectilesPerMag: 10
+  reloadTime: 0.3
+  projectilesPerMag: 18
   kickMinMax: {x: 0.05, y: 0.2}
   recoilAngleMinMax: {x: 3, y: 5}
   recoilMoveSettleTime: 0.1
