@@ -28,7 +28,7 @@ public class LivingEntity : MonoBehaviour, IDamageable
             Die();
     }
 
-    protected void Die()
+    public virtual void Die()
     {
         dead = true;
         if (OnDeath != null)
